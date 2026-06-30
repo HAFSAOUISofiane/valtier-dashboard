@@ -106,10 +106,10 @@ table.wk td b{font-weight:600;color:var(--ink)}
 
 <script>
 const SHEET_ID="14AjLuW97KNW5-_WAjlBpWt8zvoEBCZ0O_G_0rWaOibk";
-const SOURCES=[
-  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:csv",
-  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/export?format=csv"
-];
+function buildSources(){const cb="&_="+Date.now();return[
+  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:csv"+cb,
+  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/export?format=csv"+cb
+];}
 const pct=(a,b)=>b?Math.round(a/b*100):0;
 const fmtDay=d=>d.toLocaleDateString("en-GB",{day:"2-digit",month:"short"});
 function isoWeek(d){const t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));const day=(t.getUTCDay()+6)%7;t.setUTCDate(t.getUTCDate()-day+3);const f=new Date(Date.UTC(t.getUTCFullYear(),0,4));const w=1+Math.round(((t-f)/864e5-3+((f.getUTCDay()+6)%7))/7);return t.getUTCFullYear()+"-W"+String(w).padStart(2,"0");}
@@ -119,7 +119,7 @@ const COL={graphite:"#212121",gold:"#a9874e",completed:"#2f8f63",qualifying:"#bd
 Chart.defaults.font.family="'Poppins','Century Gothic',sans-serif";Chart.defaults.color="#8b8f96";
 let CH={};const kill=id=>{if(CH[id]){CH[id].destroy();delete CH[id];}};
 
-let DAILY=[],PROPS=[],GEN="";
+let DAILY=[],PROPS=[],GEN="",CURRENT="all";
 function totals(list){const m={contacted:0,replied:0,qualified:0,inqual:0,declined:0,noresp:0};list.forEach(d=>{m.contacted+=d.contacted;m.replied+=d.replied;m.qualified+=d.qualified;m.inqual+=d.inqual;m.declined+=d.declined;m.noresp+=d.noresp;});return m;}
 
 function kpis(m){
@@ -156,7 +156,7 @@ function insights(m){const rr=pct(m.replied,m.contacted),qr=pct(m.qualified,m.re
 function inWin(d,p){if(p==="all")return true;const days=p==="24h"?1:7;const last=DAILY.map(x=>x.day).sort().slice(-days);return last.includes(d.day);}
 function render(p){const list=DAILY.filter(d=>inWin(d,p));const m=totals(list);const cap={"24h":"the latest day","7d":"the last 7 days","all":"all time"};document.getElementById("funnelcap").textContent="Contacts reached in "+cap[p];document.getElementById("donutcap").textContent="Where "+cap[p]+" contacts ended up";kpis(m);funnel(m);donut(m);insights(m);daily();weekly();props();}
 
-async function fetchCSV(){let err;for(const u of SOURCES){try{const r=await fetch(u,{redirect:"follow"});if(!r.ok){err=r.status;continue;}const t=await r.text();if(/<html|google.visualization/i.test(t)&&!/^type,/m.test(t)){/*gviz JSON wrapper?*/}return t;}catch(e){err=e.message;}}throw new Error("Couldn’t reach the metrics sheet ("+err+").");}
+async function fetchCSV(){let err;for(const u of buildSources()){try{const r=await fetch(u,{redirect:"follow",cache:"no-store"});if(!r.ok){err=r.status;continue;}const t=await r.text();if(/<html|google.visualization/i.test(t)&&!/^type,/m.test(t)){/*gviz JSON wrapper?*/}return t;}catch(e){err=e.message;}}throw new Error("Couldn’t reach the metrics sheet ("+err+").");}
 function ingest(text){
   // gviz may wrap; strip if needed
   const rows=parseCSV(text.trim());
@@ -177,13 +177,15 @@ async function load(){
     const g=GEN?new Date(GEN):new Date();
     document.getElementById("updated").textContent="Data as of "+g.toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
     const m=totals(DAILY);
-    document.getElementById("foot").textContent=`All-time: ${m.contacted} contacts engaged · ${m.replied} replies · ${m.qualified} qualified. Aggregate metrics only — no client data. Valtier Real Estate.`;
-    render("all");
+    document.getElementById("foot").textContent=`All-time: ${m.contacted} contacts engaged · ${m.replied} replies · ${m.qualified} qualified. Aggregate metrics only — no client data · auto-updates every 5 min. Valtier Real Estate.`;
+    render(CURRENT);
   }catch(e){
     document.getElementById("loading").innerHTML=`<div class="errbox"><b>Couldn’t load the live metrics.</b><br/>${(e&&e.message)||e}<br/><br/>Make sure the “Valtier AI — Public Metrics” sheet is shared as <b>Anyone with the link → Viewer</b>, then press Refresh.</div>`;
   }
 }
-document.getElementById("seg").addEventListener("click",ev=>{const b=ev.target.closest("button");if(!b)return;[...document.querySelectorAll("#seg button")].forEach(x=>x.classList.toggle("on",x===b));render(b.dataset.p);});
+document.getElementById("seg").addEventListener("click",ev=>{const b=ev.target.closest("button");if(!b)return;CURRENT=b.dataset.p;[...document.querySelectorAll("#seg button")].forEach(x=>x.classList.toggle("on",x===b));render(CURRENT);});
+async function refresh(){try{const text=await fetchCSV();ingest(text);if(DAILY.length){const g=GEN?new Date(GEN):new Date();document.getElementById("updated").textContent="Data as of "+g.toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});render(CURRENT);}}catch(e){}}
+setInterval(refresh,300000);
 load();
 </script>
 </body>
