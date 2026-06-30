@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Valtier · AI Agent Performance</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
+<style>
+:root{
+  color-scheme:light;
+  --ink:#212121;--graphite:#212121;--ink2:#39414a;--muted:#8b8f96;
+  --paper:#f6f3ef;--card:#fff;--beige:#e4dcdc;--beige2:#efe9e3;--line:#e7e1da;
+  --gold:#a9874e;--goldsoft:#f3ecdf;--green:#2f8f63;--greensoft:#e6f1ea;
+  --amber:#bd861f;--ambersoft:#f7eeda;--red:#bf4a32;--redsoft:#f8e9e5;
+  --slate:#9a958d;--slatesoft:#eeeae4;
+  --shadow:0 1px 2px rgba(33,33,33,.04),0 6px 18px rgba(33,33,33,.05);
+  --sans:"Poppins","Century Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink2);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding:24px 24px 48px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{width:42px;height:42px;border-radius:6px;background:var(--graphite);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:20px;letter-spacing:1px}
+.logo b{color:var(--gold)}
+.title h1{font-size:17px;margin:0;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+.title p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+.status{display:flex;align-items:center;gap:10px}
+.badge{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);padding:8px 13px;border-radius:4px;letter-spacing:.04em;text-transform:uppercase}
+.dotlive{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--greensoft)}
+.rl{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:4px;padding:8px 13px;font:inherit;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.rl:hover{background:var(--beige2)}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:5px;padding:4px;gap:2px;margin-bottom:20px}
+.seg button{border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:8px 18px;border-radius:3px;cursor:pointer;font-family:var(--sans)}
+.seg button.on{background:var(--graphite);color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:13px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:17px;box-shadow:var(--shadow)}
+.kpi .ic{width:30px;height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:13px}
+.kpi .n{font-size:29px;font-weight:300;line-height:1;letter-spacing:-.5px;color:var(--ink)}
+.kpi .l{font-size:11px;color:var(--muted);margin-top:8px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.kpi .pct{font-size:11px;font-weight:600;margin-top:9px;display:inline-block;padding:2px 8px;border-radius:3px}
+.grid2{display:grid;grid-template-columns:1.05fr 1fr;gap:18px;margin-bottom:18px}
+.grid2b{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:19px 20px;box-shadow:var(--shadow)}
+.card h2{font-size:11.5px;margin:0 0 3px;color:var(--ink);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.card .cap{font-size:11.5px;color:var(--muted);margin:0 0 16px}
+.chartbox{position:relative;height:240px}.chartbox.sm{height:212px}.chartbox.tall{height:280px}
+.legend{font-size:12px;color:var(--ink2);margin-top:14px;display:flex;flex-wrap:wrap;gap:16px}
+.legend span{display:flex;align-items:center;gap:7px}.dot{width:9px;height:9px;border-radius:2px;display:inline-block}
+.insights{background:var(--graphite);border-radius:6px;padding:22px 24px;margin-bottom:18px;color:#e7e3dd}
+.insights h2{font-size:11.5px;margin:0 0 15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.insights ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.insights li{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#d9d4cc}.insights li b{color:#fff}
+.insights .bullet{flex:0 0 auto;width:6px;height:6px;border-radius:50%;margin-top:7px;background:var(--gold)}
+table.wk{width:100%;border-collapse:collapse;font-size:12.5px}
+table.wk th{text-align:right;color:var(--muted);font-weight:500;padding:9px 10px;border-bottom:1px solid var(--line);letter-spacing:.04em;text-transform:uppercase;font-size:10.5px}
+table.wk th:first-child,table.wk td:first-child{text-align:left}
+table.wk td{padding:10px;border-bottom:1px solid #f2efe9}table.wk tr:last-child td{border-bottom:0}
+table.wk td b{font-weight:600;color:var(--ink)}
+.bar{height:5px;border-radius:3px;background:var(--beige);overflow:hidden}.bar>i{display:block;height:100%;background:var(--gold);border-radius:3px}
+.foot{color:var(--muted);font-size:11px;margin-top:22px;text-align:center}
+.center{min-height:62vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;color:var(--muted)}
+.spin{width:32px;height:32px;border:2px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:r .8s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+.errbox{background:var(--redsoft);border:1px solid #eccabf;color:#8c3a26;padding:16px 20px;border-radius:6px;max-width:560px;line-height:1.6;text-align:left}
+.errbox code{background:#fff;padding:1px 5px;border-radius:3px}
+@media(max-width:920px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2,.grid2b{grid-template-columns:1fr}}
+@media(max-width:540px){.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="brand">
+      <div class="logo"><b>V</b></div>
+      <div class="title"><h1>Valtier · AI Agent</h1><p>Valtiera — WhatsApp lead qualification performance</p></div>
+    </div>
+    <div class="status">
+      <span class="badge"><span class="dotlive"></span><span id="updated">Loading…</span></span>
+      <button class="rl" onclick="location.reload()">↻ Refresh</button>
+    </div>
+  </div>
+
+  <div id="loading" class="center"><div class="spin"></div><div>Loading live metrics…</div></div>
+
+  <div id="app" style="display:none">
+    <div class="seg" id="seg">
+      <button data-p="24h">Latest day</button>
+      <button data-p="7d">Last 7 days</button>
+      <button data-p="all" class="on">All time</button>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid2">
+      <div class="card"><h2>Conversion funnel</h2><p class="cap" id="funnelcap"></p><div class="chartbox"><canvas id="funnel"></canvas></div></div>
+      <div class="card"><h2>Outcome breakdown</h2><p class="cap" id="donutcap"></p><div class="chartbox sm"><canvas id="donut"></canvas></div><div class="legend" id="donutlegend"></div></div>
+    </div>
+    <div class="card" style="margin-bottom:18px"><h2>Daily trend</h2><p class="cap">Contacts reached, replies, and completed qualifications per day</p><div class="chartbox tall"><canvas id="daily"></canvas></div></div>
+    <div class="grid2b">
+      <div class="card"><h2>Weekly summary</h2><p class="cap">Reply &amp; qualification rate by ISO week</p><div id="weekly"></div></div>
+      <div class="card"><h2>Property demand</h2><p class="cap">Engaged leads by listing reference</p><div class="chartbox sm"><canvas id="props"></canvas></div></div>
+    </div>
+    <div class="insights"><h2>Read-out</h2><ul id="insights"></ul></div>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+
+<script>
+const SHEET_ID="14AjLuW97KNW5-_WAjlBpWt8zvoEBCZ0O_G_0rWaOibk";
+const SOURCES=[
+  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:csv",
+  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/export?format=csv"
+];
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const fmtDay=d=>d.toLocaleDateString("en-GB",{day:"2-digit",month:"short"});
+function isoWeek(d){const t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));const day=(t.getUTCDay()+6)%7;t.setUTCDate(t.getUTCDate()-day+3);const f=new Date(Date.UTC(t.getUTCFullYear(),0,4));const w=1+Math.round(((t-f)/864e5-3+((f.getUTCDay()+6)%7))/7);return t.getUTCFullYear()+"-W"+String(w).padStart(2,"0");}
+function parseCSV(text){const rows=[];let row=[],f="",q=false;for(let i=0;i<text.length;i++){const c=text[i];if(q){if(c==='"'){if(text[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}else{if(c==='"')q=true;else if(c===','){row.push(f);f="";}else if(c==='\n'){row.push(f);rows.push(row);row=[];f="";}else if(c==='\r'){}else f+=c;}}if(f.length||row.length){row.push(f);rows.push(row);}return rows;}
+
+const COL={graphite:"#212121",gold:"#a9874e",completed:"#2f8f63",qualifying:"#bd861f",declined:"#bf4a32",noresp:"#d8cfc5",contacted:"#cfc6bb"};
+Chart.defaults.font.family="'Poppins','Century Gothic',sans-serif";Chart.defaults.color="#8b8f96";
+let CH={};const kill=id=>{if(CH[id]){CH[id].destroy();delete CH[id];}};
+
+let DAILY=[],PROPS=[],GEN="";
+function totals(list){const m={contacted:0,replied:0,qualified:0,inqual:0,declined:0,noresp:0};list.forEach(d=>{m.contacted+=d.contacted;m.replied+=d.replied;m.qualified+=d.qualified;m.inqual+=d.inqual;m.declined+=d.declined;m.noresp+=d.noresp;});return m;}
+
+function kpis(m){
+  const rr=pct(m.replied,m.contacted),qr=pct(m.qualified,m.replied);
+  const c=(ic,bg,col,n,l,p,pb,pc)=>`<div class="kpi"><div class="ic" style="background:${bg};color:${col}">${ic}</div><div class="n">${n}</div><div class="l">${l}</div>${p?`<div class="pct" style="background:${pb};color:${pc}">${p}</div>`:""}</div>`;
+  document.getElementById("kpis").innerHTML=
+    c("◷","var(--beige2)","#6b6f76",m.contacted,"Contacted","","","")+
+    c("✓","var(--goldsoft)","#a9874e",m.replied,"Replied",rr+"% reply","var(--goldsoft)","#9a7a43")+
+    c("★","var(--greensoft)","#2f8f63",m.qualified,"Qualified",qr+"% of replies","var(--greensoft)","#2f8f63")+
+    c("◔","var(--ambersoft)","#bd861f",m.inqual,"In qualification","mid-flow","var(--ambersoft)","#bd861f")+
+    c("✕","var(--redsoft)","#bf4a32",m.declined,"Declined","opted out","var(--redsoft)","#bf4a32")+
+    c("—","var(--beige2)","#9a958d",m.noresp,"No response",pct(m.noresp,m.contacted)+"%","var(--beige2)","#9a958d");
+}
+function funnel(m){kill("funnel");CH.funnel=new Chart(funnelEl(),{type:"bar",data:{labels:["Contacted","Replied","Qualified"],datasets:[{data:[m.contacted,m.replied,m.qualified],backgroundColor:[COL.contacted,COL.gold,COL.completed],borderRadius:4,barThickness:40}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+" ("+pct(c.parsed.x,m.contacted)+"%)"}}},scales:{x:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}},y:{grid:{display:false}}}}});}
+function funnelEl(){return document.getElementById("funnel");}
+function donut(m){kill("donut");CH.donut=new Chart(document.getElementById("donut"),{type:"doughnut",data:{labels:["Completed","In qualification","Declined","No response"],datasets:[{data:[m.qualified,m.inqual,m.declined,m.noresp],backgroundColor:[COL.completed,COL.qualifying,COL.declined,COL.noresp],borderWidth:3,borderColor:"#fff"}]},options:{responsive:true,maintainAspectRatio:false,cutout:"66%",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+": "+c.parsed+" ("+pct(c.parsed,m.contacted)+"%)"}}}}});
+  const L=[["Completed",COL.completed,m.qualified],["In qualification",COL.qualifying,m.inqual],["Declined",COL.declined,m.declined],["No response",COL.noresp,m.noresp]];
+  document.getElementById("donutlegend").innerHTML=L.map(x=>`<span><i class="dot" style="background:${x[1]}"></i>${x[0]} ${x[2]}</span>`).join("");}
+function daily(){kill("daily");const k=DAILY.slice().sort((a,b)=>a.day.localeCompare(b.day));CH.daily=new Chart(document.getElementById("daily"),{type:"line",data:{labels:k.map(d=>fmtDay(new Date(d.day))),datasets:[
+  {label:"Contacted",data:k.map(d=>d.contacted),borderColor:"#b8b0a6",backgroundColor:"rgba(184,176,166,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:"#b8b0a6"},
+  {label:"Replied",data:k.map(d=>d.replied),borderColor:COL.gold,backgroundColor:"rgba(169,135,78,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:COL.gold},
+  {label:"Qualified",data:k.map(d=>d.qualified),borderColor:COL.completed,backgroundColor:"rgba(47,143,99,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:COL.completed}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"top",align:"end",labels:{boxWidth:8,boxHeight:8,usePointStyle:true,pointStyle:"circle",font:{size:11},color:"#39414a"}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}}}}});}
+function weekly(){const wk={};DAILY.forEach(d=>{const k=isoWeek(new Date(d.day));(wk[k]=wk[k]||{c:0,r:0,q:0});wk[k].c+=d.contacted;wk[k].r+=d.replied;wk[k].q+=d.qualified;});const keys=Object.keys(wk).sort();let h=`<table class="wk"><thead><tr><th>Week</th><th>Contacted</th><th>Replied</th><th>Qualified</th><th>Reply rate</th></tr></thead><tbody>`;keys.forEach(k=>{const w=wk[k];const rr=pct(w.r,w.c);h+=`<tr><td><b>${k}</b></td><td>${w.c}</td><td>${w.r}</td><td>${w.q}</td><td><div style="display:flex;align-items:center;gap:9px;justify-content:flex-end"><span style="font-weight:600;color:var(--ink)">${rr}%</span><div class="bar" style="width:58px"><i style="width:${rr}%"></i></div></div></td></tr>`;});h+="</tbody></table>";document.getElementById("weekly").innerHTML=h;}
+function props(){kill("props");const e=PROPS.slice().sort((a,b)=>b.count-a.count).slice(0,7);CH.props=new Chart(document.getElementById("props"),{type:"bar",data:{labels:e.map(x=>"ref "+x.ref),datasets:[{data:e.map(x=>x.count),backgroundColor:COL.graphite,borderRadius:3,barThickness:16}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}},y:{grid:{display:false}}}}});}
+function insights(m){const rr=pct(m.replied,m.contacted),qr=pct(m.qualified,m.replied);const top=PROPS.slice().sort((a,b)=>b.count-a.count)[0];const it=[
+  `<b>${m.qualified} of ${m.replied} replies (${qr}%)</b> reached a completed qualification — solicitud confirmed or handed to an agent for a visit.`,
+  `<b>${rr}% reply rate</b> (${m.replied}/${m.contacted}). ${m.noresp} contacts didn’t answer — the lever is list quality &amp; follow-up cadence.`,
+  m.declined?`<b>${m.declined} opt-out${m.declined>1?"s":""}</b> — handled cleanly by the agent.`:`No opt-outs in this period.`,
+  m.inqual?`<b>${m.inqual} lead${m.inqual>1?"s":""} mid-flow</b> — engaged but not yet finished; best manual follow-ups.`:`No leads stuck mid-qualification.`,
+  top?`<b>Top demand: ref ${top.ref}</b> with ${top.count} engaged leads.`:""
+].filter(Boolean);document.getElementById("insights").innerHTML=it.map(t=>`<li><span class="bullet"></span><span>${t}</span></li>`).join("");}
+
+function inWin(d,p){if(p==="all")return true;const days=p==="24h"?1:7;const last=DAILY.map(x=>x.day).sort().slice(-days);return last.includes(d.day);}
+function render(p){const list=DAILY.filter(d=>inWin(d,p));const m=totals(list);const cap={"24h":"the latest day","7d":"the last 7 days","all":"all time"};document.getElementById("funnelcap").textContent="Contacts reached in "+cap[p];document.getElementById("donutcap").textContent="Where "+cap[p]+" contacts ended up";kpis(m);funnel(m);donut(m);insights(m);daily();weekly();props();}
+
+async function fetchCSV(){let err;for(const u of SOURCES){try{const r=await fetch(u,{redirect:"follow"});if(!r.ok){err=r.status;continue;}const t=await r.text();if(/<html|google.visualization/i.test(t)&&!/^type,/m.test(t)){/*gviz JSON wrapper?*/}return t;}catch(e){err=e.message;}}throw new Error("Couldn’t reach the metrics sheet ("+err+").");}
+function ingest(text){
+  // gviz may wrap; strip if needed
+  const rows=parseCSV(text.trim());
+  DAILY=[];PROPS=[];GEN="";
+  rows.forEach(r=>{const t=(r[0]||"").trim();
+    if(t==="daily")DAILY.push({day:r[1],contacted:+r[2]||0,replied:+r[3]||0,qualified:+r[4]||0,inqual:+r[5]||0,declined:+r[6]||0,noresp:+r[7]||0});
+    else if(t==="prop")PROPS.push({ref:r[1],count:+r[2]||0});
+    else if(t==="meta"&&r[1]==="generated")GEN=r[2];
+  });
+}
+async function load(){
+  try{
+    const text=await fetchCSV();
+    ingest(text);
+    if(!DAILY.length) throw new Error("The metrics sheet has no rows yet, or isn’t shared publicly.");
+    document.getElementById("loading").style.display="none";
+    document.getElementById("app").style.display="block";
+    const g=GEN?new Date(GEN):new Date();
+    document.getElementById("updated").textContent="Data as of "+g.toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
+    const m=totals(DAILY);
+    document.getElementById("foot").textContent=`All-time: ${m.contacted} contacts engaged · ${m.replied} replies · ${m.qualified} qualified. Aggregate metrics only — no client data. Valtier Real Estate.`;
+    render("all");
+  }catch(e){
+    document.getElementById("loading").innerHTML=`<div class="errbox"><b>Couldn’t load the live metrics.</b><br/>${(e&&e.message)||e}<br/><br/>Make sure the “Valtier AI — Public Metrics” sheet is shared as <b>Anyone with the link → Viewer</b>, then press Refresh.</div>`;
+  }
+}
+document.getElementById("seg").addEventListener("click",ev=>{const b=ev.target.closest("button");if(!b)return;[...document.querySelectorAll("#seg button")].forEach(x=>x.classList.toggle("on",x===b));render(b.dataset.p);});
+load();
+</script>
+</body>
+</html>
