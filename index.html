@@ -33,7 +33,7 @@ body{margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink2);
 .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:5px;padding:4px;gap:2px;margin-bottom:20px}
 .seg button{border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:8px 18px;border-radius:3px;cursor:pointer;font-family:var(--sans)}
 .seg button.on{background:var(--graphite);color:#fff}
-.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:13px;margin-bottom:20px}
+.kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:13px;margin-bottom:20px}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:17px;box-shadow:var(--shadow)}
 .kpi .ic{width:30px;height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:13px}
 .kpi .n{font-size:29px;font-weight:300;line-height:1;letter-spacing:-.5px;color:var(--ink)}
@@ -120,10 +120,11 @@ Chart.defaults.font.family="'Poppins','Century Gothic',sans-serif";Chart.default
 let CH={};const kill=id=>{if(CH[id]){CH[id].destroy();delete CH[id];}};
 
 let DAILY=[],PROPS=[],GEN="",CURRENT="all";
-function totals(list){const m={contacted:0,replied:0,qualified:0,inqual:0,declined:0,noresp:0};list.forEach(d=>{m.contacted+=d.contacted;m.replied+=d.replied;m.qualified+=d.qualified;m.inqual+=d.inqual;m.declined+=d.declined;m.noresp+=d.noresp;});return m;}
+function totals(list){const m={contacted:0,replied:0,qualified:0,inqual:0,declined:0,noresp:0,qmsgs:0};list.forEach(d=>{m.contacted+=d.contacted;m.replied+=d.replied;m.qualified+=d.qualified;m.inqual+=d.inqual;m.declined+=d.declined;m.noresp+=d.noresp;m.qmsgs+=(d.qmsgs||0);});return m;}
 
 function kpis(m){
   const rr=pct(m.replied,m.contacted),qr=pct(m.qualified,m.replied);
+  const avg=m.qualified?(m.qmsgs/m.qualified).toFixed(1):"—";
   const c=(ic,bg,col,n,l,p,pb,pc)=>`<div class="kpi"><div class="ic" style="background:${bg};color:${col}">${ic}</div><div class="n">${n}</div><div class="l">${l}</div>${p?`<div class="pct" style="background:${pb};color:${pc}">${p}</div>`:""}</div>`;
   document.getElementById("kpis").innerHTML=
     c("◷","var(--beige2)","#6b6f76",m.contacted,"Contacted","","","")+
@@ -131,7 +132,8 @@ function kpis(m){
     c("★","var(--greensoft)","#2f8f63",m.qualified,"Qualified",qr+"% of replies","var(--greensoft)","#2f8f63")+
     c("◔","var(--ambersoft)","#bd861f",m.inqual,"In qualification","mid-flow","var(--ambersoft)","#bd861f")+
     c("✕","var(--redsoft)","#bf4a32",m.declined,"Declined","opted out","var(--redsoft)","#bf4a32")+
-    c("—","var(--beige2)","#9a958d",m.noresp,"No response",pct(m.noresp,m.contacted)+"%","var(--beige2)","#9a958d");
+    c("—","var(--beige2)","#9a958d",m.noresp,"No response",pct(m.noresp,m.contacted)+"%","var(--beige2)","#9a958d")+
+    c("✉","var(--goldsoft)","#9a7a43",avg,"Avg msgs / qual","to qualify","var(--goldsoft)","#9a7a43");
 }
 function funnel(m){kill("funnel");CH.funnel=new Chart(funnelEl(),{type:"bar",data:{labels:["Contacted","Replied","Qualified"],datasets:[{data:[m.contacted,m.replied,m.qualified],backgroundColor:[COL.contacted,COL.gold,COL.completed],borderRadius:4,barThickness:40}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+" ("+pct(c.parsed.x,m.contacted)+"%)"}}},scales:{x:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}},y:{grid:{display:false}}}}});}
 function funnelEl(){return document.getElementById("funnel");}
@@ -162,7 +164,7 @@ function ingest(text){
   const rows=parseCSV(text.trim());
   DAILY=[];PROPS=[];GEN="";
   rows.forEach(r=>{const t=(r[0]||"").trim();
-    if(t==="daily")DAILY.push({day:r[1],contacted:+r[2]||0,replied:+r[3]||0,qualified:+r[4]||0,inqual:+r[5]||0,declined:+r[6]||0,noresp:+r[7]||0});
+    if(t==="daily")DAILY.push({day:r[1],contacted:+r[2]||0,replied:+r[3]||0,qualified:+r[4]||0,inqual:+r[5]||0,declined:+r[6]||0,noresp:+r[7]||0,qmsgs:+r[8]||0});
     else if(t==="prop")PROPS.push({ref:r[1],count:+r[2]||0});
     else if(t==="meta"&&r[1]==="generated")GEN=r[2];
   });
