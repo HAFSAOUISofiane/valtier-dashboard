@@ -12,44 +12,56 @@
   --paper:#f6f3ef;--card:#fff;--beige:#e4dcdc;--beige2:#efe9e3;--line:#e7e1da;
   --gold:#a9874e;--goldsoft:#f3ecdf;--green:#2f8f63;--greensoft:#e6f1ea;
   --amber:#bd861f;--ambersoft:#f7eeda;--red:#bf4a32;--redsoft:#f8e9e5;
-  --slate:#9a958d;--slatesoft:#eeeae4;
+  --blue:#3a6ea5;--bluesoft:#e9f0f7;
   --shadow:0 1px 2px rgba(33,33,33,.04),0 6px 18px rgba(33,33,33,.05);
   --sans:"Poppins","Century Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink2);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1160px;margin:0 auto;padding:24px 24px 48px}
-.head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid var(--line)}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 24px 48px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:13px}
 .logo{width:42px;height:42px;border-radius:6px;background:var(--graphite);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:20px;letter-spacing:1px}
 .logo b{color:var(--gold)}
 .title h1{font-size:17px;margin:0;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
 .title p{margin:3px 0 0;font-size:12px;color:var(--muted)}
 .status{display:flex;align-items:center;gap:10px}
-.badge{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);padding:8px 13px;border-radius:4px;letter-spacing:.04em;text-transform:uppercase}
-.dotlive{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--greensoft)}
-.rl{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:4px;padding:8px 13px;font:inherit;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.badge{font-size:11px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);padding:8px 13px;border-radius:5px;letter-spacing:.03em;text-transform:uppercase;font-weight:500}
+.badge .dt{width:7px;height:7px;border-radius:50%}
+.badge.live{color:#1e7a4b;border-color:#cfe7da}.badge.live .dt{background:var(--green);box-shadow:0 0 0 3px var(--greensoft)}
+.badge.warn{color:#9a6a12;border-color:#eddcbb}.badge.warn .dt{background:var(--amber);box-shadow:0 0 0 3px var(--ambersoft)}
+.badge.stale{color:#a5391f;border-color:#eec7bd;background:var(--redsoft)}.badge.stale .dt{background:var(--red);box-shadow:0 0 0 3px #f4d5cc}
+.rl{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:5px;padding:8px 12px;font:inherit;font-size:11px;letter-spacing:.03em;text-transform:uppercase;cursor:pointer}
 .rl:hover{background:var(--beige2)}
-.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:5px;padding:4px;gap:2px;margin-bottom:20px}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:5px;padding:4px;gap:2px;margin-bottom:18px}
 .seg button{border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:8px 18px;border-radius:3px;cursor:pointer;font-family:var(--sans)}
 .seg button.on{background:var(--graphite);color:#fff}
-.kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:13px;margin-bottom:20px}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:17px;box-shadow:var(--shadow)}
-.kpi .ic{width:30px;height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:13px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:13px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px 17px 15px;box-shadow:var(--shadow)}
+.kpi .ic{width:30px;height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:12px}
 .kpi .n{font-size:29px;font-weight:300;line-height:1;letter-spacing:-.5px;color:var(--ink)}
 .kpi .l{font-size:11px;color:var(--muted);margin-top:8px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
-.kpi .pct{font-size:11px;font-weight:600;margin-top:9px;display:inline-block;padding:2px 8px;border-radius:3px}
+.kpi .pct{font-size:11px;font-weight:600;margin-top:8px;display:inline-block;padding:2px 8px;border-radius:3px}
+.kpi .delta{font-size:10.5px;font-weight:600;margin-top:7px}
+.up{color:#1e7a4b}.down{color:#bf4a32}.flat{color:var(--muted)}
+.effrow{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:18px}
+.eff{background:linear-gradient(180deg,#fffdf9,#fbf7ef);border:1px solid var(--line);border-radius:6px;padding:14px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px}
+.eff .ei{width:34px;height:34px;border-radius:8px;background:var(--goldsoft);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:15px;flex:0 0 auto}
+.eff .en{font-size:20px;font-weight:400;color:var(--ink);line-height:1}
+.eff .el{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
 .grid2{display:grid;grid-template-columns:1.05fr 1fr;gap:18px;margin-bottom:18px}
 .grid2b{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-bottom:18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:19px 20px;box-shadow:var(--shadow)}
 .card h2{font-size:11.5px;margin:0 0 3px;color:var(--ink);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-.card .cap{font-size:11.5px;color:var(--muted);margin:0 0 16px}
-.chartbox{position:relative;height:240px}.chartbox.sm{height:212px}.chartbox.tall{height:280px}
-.legend{font-size:12px;color:var(--ink2);margin-top:14px;display:flex;flex-wrap:wrap;gap:16px}
+.card .cap{font-size:11.5px;color:var(--muted);margin:0 0 15px}
+.chartbox{position:relative;height:238px}.chartbox.sm{height:210px}.chartbox.tall{height:280px}
+.drops{display:flex;justify-content:space-around;margin-top:10px;font-size:11px;color:var(--muted)}
+.drops b{color:var(--ink);font-weight:600}
+.legend{font-size:12px;color:var(--ink2);margin-top:13px;display:flex;flex-wrap:wrap;gap:15px}
 .legend span{display:flex;align-items:center;gap:7px}.dot{width:9px;height:9px;border-radius:2px;display:inline-block}
 .insights{background:var(--graphite);border-radius:6px;padding:22px 24px;margin-bottom:18px;color:#e7e3dd}
-.insights h2{font-size:11.5px;margin:0 0 15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
-.insights ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.insights h2{font-size:11.5px;margin:0 0 14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.insights ul{margin:0;padding:0;list-style:none;display:grid;gap:11px}
 .insights li{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#d9d4cc}.insights li b{color:#fff}
 .insights .bullet{flex:0 0 auto;width:6px;height:6px;border-radius:50%;margin-top:7px;background:var(--gold)}
 table.wk{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -58,13 +70,16 @@ table.wk th:first-child,table.wk td:first-child{text-align:left}
 table.wk td{padding:10px;border-bottom:1px solid #f2efe9}table.wk tr:last-child td{border-bottom:0}
 table.wk td b{font-weight:600;color:var(--ink)}
 .bar{height:5px;border-radius:3px;background:var(--beige);overflow:hidden}.bar>i{display:block;height:100%;background:var(--gold);border-radius:3px}
-.foot{color:var(--muted);font-size:11px;margin-top:22px;text-align:center}
-.center{min-height:62vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;color:var(--muted)}
+.foot{color:var(--muted);font-size:11px;margin-top:20px;text-align:center}
+details.method{max-width:760px;margin:14px auto 0;font-size:12px;color:var(--ink2);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2px 16px}
+details.method summary{cursor:pointer;padding:11px 0;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-size:10.5px;font-weight:600;list-style:none}
+details.method summary::-webkit-details-marker{display:none}
+details.method p{margin:4px 0 12px;line-height:1.6}
+.center{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;color:var(--muted)}
 .spin{width:32px;height:32px;border:2px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:r .8s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
 .errbox{background:var(--redsoft);border:1px solid #eccabf;color:#8c3a26;padding:16px 20px;border-radius:6px;max-width:560px;line-height:1.6;text-align:left}
-.errbox code{background:#fff;padding:1px 5px;border-radius:3px}
-@media(max-width:920px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2,.grid2b{grid-template-columns:1fr}}
+@media(max-width:920px){.kpis{grid-template-columns:repeat(3,1fr)}.effrow{grid-template-columns:repeat(2,1fr)}.grid2,.grid2b{grid-template-columns:1fr}}
 @media(max-width:540px){.kpis{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -76,8 +91,8 @@ table.wk td b{font-weight:600;color:var(--ink)}
       <div class="title"><h1>Valtier · AI Agent</h1><p>Valtiera — WhatsApp lead qualification performance</p></div>
     </div>
     <div class="status">
-      <span class="badge"><span class="dotlive"></span><span id="updated">Loading…</span></span>
-      <button class="rl" onclick="location.reload()">↻ Refresh</button>
+      <span class="badge" id="fresh"><span class="dt"></span><span id="freshtxt">Loading…</span></span>
+      <button class="rl" onclick="location.reload()">↻</button>
     </div>
   </div>
 
@@ -89,29 +104,59 @@ table.wk td b{font-weight:600;color:var(--ink)}
       <button data-p="7d">Last 7 days</button>
       <button data-p="all" class="on">All time</button>
     </div>
+
     <div class="kpis" id="kpis"></div>
+    <div class="effrow" id="eff"></div>
+
     <div class="grid2">
-      <div class="card"><h2>Conversion funnel</h2><p class="cap" id="funnelcap"></p><div class="chartbox"><canvas id="funnel"></canvas></div></div>
-      <div class="card"><h2>Outcome breakdown</h2><p class="cap" id="donutcap"></p><div class="chartbox sm"><canvas id="donut"></canvas></div><div class="legend" id="donutlegend"></div></div>
+      <div class="card">
+        <h2>Conversion funnel</h2>
+        <p class="cap" id="funnelcap"></p>
+        <div class="chartbox"><canvas id="funnel"></canvas></div>
+        <div class="drops" id="drops"></div>
+      </div>
+      <div class="card">
+        <h2>Outcome breakdown</h2>
+        <p class="cap" id="donutcap"></p>
+        <div class="chartbox sm"><canvas id="donut"></canvas></div>
+        <div class="legend" id="donutlegend"></div>
+      </div>
     </div>
-    <div class="card" style="margin-bottom:18px"><h2>Daily trend</h2><p class="cap">Contacts reached, replies, and completed qualifications per day</p><div class="chartbox tall"><canvas id="daily"></canvas></div></div>
+
+    <div class="card" style="margin-bottom:18px">
+      <h2>Daily trend</h2><p class="cap">Contacts reached, replies, and completed qualifications per day</p>
+      <div class="chartbox tall"><canvas id="daily"></canvas></div>
+    </div>
+
     <div class="grid2b">
       <div class="card"><h2>Weekly summary</h2><p class="cap">Reply &amp; qualification rate by ISO week</p><div id="weekly"></div></div>
       <div class="card"><h2>Property demand</h2><p class="cap">Engaged leads by listing reference</p><div class="chartbox sm"><canvas id="props"></canvas></div></div>
     </div>
+
     <div class="insights"><h2>Read-out</h2><ul id="insights"></ul></div>
+
     <div class="foot" id="foot"></div>
+    <details class="method">
+      <summary>Methodology &amp; definitions</summary>
+      <p><b>Source.</b> Metrics are computed every 5 minutes from the “Whatsapp Chat History” log by an n8n workflow and written to an aggregate sheet this page reads. Only anonymous counts are exposed — no names, numbers, or message content.</p>
+      <p><b>Outcome per lead</b> (from the conversation's end state): <b>Qualified</b> = an active CRM solicitud was confirmed or the lead was handed to an agent for a visit; <b>In qualification</b> = replied, still answering; <b>Declined</b> = explicitly not interested; <b>No response</b> = never replied.</p>
+      <p><b>Speed.</b> “Avg reply time” = time from the outbound message to the lead's first reply. “Avg time to qualify” = time from first contact to the last message of qualified conversations. “Avg msgs / qual” = total messages (both sides) in qualified conversations.</p>
+      <p><b>Volume &amp; sentiment.</b> “Total messages” = every message exchanged (agent + client) across all contacted conversations. “Client satisfaction” is a sentiment proxy: the share of replying leads whose messages show positive/appreciative language (e.g. “gracias”, “perfecto”, “me interesa”) and who did not opt out. It is indicative, not a formal CSAT survey.</p>
+      <p><b>Note on truth.</b> These outcomes are inferred from the chat log. The authoritative record of solicitudes, estados and visits is Mobilia CRM; a Phase-2 reconciliation against the Mobilia API would make “Qualified” exact.</p>
+    </details>
   </div>
 </div>
 
 <script>
 const SHEET_ID="14AjLuW97KNW5-_WAjlBpWt8zvoEBCZ0O_G_0rWaOibk";
-function buildSources(){const cb="&_="+Date.now();return[
-  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:csv"+cb,
-  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/export?format=csv"+cb
+function buildSources(){const r=Date.now();return[
+  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:csv;reqId:"+r,
+  "https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/export?format=csv&_="+r
 ];}
 const pct=(a,b)=>b?Math.round(a/b*100):0;
 const fmtDay=d=>d.toLocaleDateString("en-GB",{day:"2-digit",month:"short"});
+function fmtDur(ms,n){ if(!n||!ms||ms<=0) return "—"; const min=ms/n/60000; if(min<60) return Math.max(1,Math.round(min))+"m"; return (min/60).toFixed(1)+"h"; }
+function fmtAge(ms){ const m=Math.round(ms/60000); if(m<60) return m+"m"; const h=ms/3600000; if(h<48) return h.toFixed(1)+"h"; return Math.round(h/24)+"d"; }
 function isoWeek(d){const t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));const day=(t.getUTCDay()+6)%7;t.setUTCDate(t.getUTCDate()-day+3);const f=new Date(Date.UTC(t.getUTCFullYear(),0,4));const w=1+Math.round(((t-f)/864e5-3+((f.getUTCDay()+6)%7))/7);return t.getUTCFullYear()+"-W"+String(w).padStart(2,"0");}
 function parseCSV(text){const rows=[];let row=[],f="",q=false;for(let i=0;i<text.length;i++){const c=text[i];if(q){if(c==='"'){if(text[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}else{if(c==='"')q=true;else if(c===','){row.push(f);f="";}else if(c==='\n'){row.push(f);rows.push(row);row=[];f="";}else if(c==='\r'){}else f+=c;}}if(f.length||row.length){row.push(f);rows.push(row);}return rows;}
 
@@ -119,75 +164,116 @@ const COL={graphite:"#212121",gold:"#a9874e",completed:"#2f8f63",qualifying:"#bd
 Chart.defaults.font.family="'Poppins','Century Gothic',sans-serif";Chart.defaults.color="#8b8f96";
 let CH={};const kill=id=>{if(CH[id]){CH[id].destroy();delete CH[id];}};
 
-let DAILY=[],PROPS=[],GEN="",CURRENT="all";
-function totals(list){const m={contacted:0,replied:0,qualified:0,inqual:0,declined:0,noresp:0,qmsgs:0};list.forEach(d=>{m.contacted+=d.contacted;m.replied+=d.replied;m.qualified+=d.qualified;m.inqual+=d.inqual;m.declined+=d.declined;m.noresp+=d.noresp;m.qmsgs+=(d.qmsgs||0);});return m;}
+let DAILY=[],PROPS=[],GENMS=0,CURRENT="all";
+function sum(list){const m={contacted:0,replied:0,qualified:0,inqual:0,declined:0,noresp:0,qmsgs:0,latMs:0,durMs:0,score:0,tmsg:0,sat:0};
+  list.forEach(d=>{m.contacted+=d.contacted;m.replied+=d.replied;m.qualified+=d.qualified;m.inqual+=d.inqual;m.declined+=d.declined;m.noresp+=d.noresp;m.qmsgs+=d.qmsgs;m.latMs+=d.latMs;m.durMs+=d.durMs;m.score+=d.score;m.tmsg+=d.tmsg;m.sat+=d.sat;});return m;}
+function windowDays(p){const sorted=DAILY.slice().sort((a,b)=>a.day.localeCompare(b.day));
+  if(p==="all") return [sorted,[]];
+  const n=p==="24h"?1:7;
+  return [sorted.slice(-n), sorted.slice(-2*n,-n)];}
 
-function kpis(m){
-  const rr=pct(m.replied,m.contacted),qr=pct(m.qualified,m.replied);
-  const avg=m.qualified?(m.qmsgs/m.qualified).toFixed(1):"—";
-  const c=(ic,bg,col,n,l,p,pb,pc)=>`<div class="kpi"><div class="ic" style="background:${bg};color:${col}">${ic}</div><div class="n">${n}</div><div class="l">${l}</div>${p?`<div class="pct" style="background:${pb};color:${pc}">${p}</div>`:""}</div>`;
-  document.getElementById("kpis").innerHTML=
-    c("◷","var(--beige2)","#6b6f76",m.contacted,"Contacted","","","")+
-    c("✓","var(--goldsoft)","#a9874e",m.replied,"Replied",rr+"% reply","var(--goldsoft)","#9a7a43")+
-    c("★","var(--greensoft)","#2f8f63",m.qualified,"Qualified",qr+"% of replies","var(--greensoft)","#2f8f63")+
-    c("◔","var(--ambersoft)","#bd861f",m.inqual,"In qualification","mid-flow","var(--ambersoft)","#bd861f")+
-    c("✕","var(--redsoft)","#bf4a32",m.declined,"Declined","opted out","var(--redsoft)","#bf4a32")+
-    c("—","var(--beige2)","#9a958d",m.noresp,"No response",pct(m.noresp,m.contacted)+"%","var(--beige2)","#9a958d")+
-    c("✉","var(--goldsoft)","#9a7a43",avg,"Avg msgs / qual","to qualify","var(--goldsoft)","#9a7a43");
+function freshness(){
+  const el=document.getElementById("fresh"),tx=document.getElementById("freshtxt");
+  if(!GENMS){el.className="badge warn";tx.textContent="Updated —";return;}
+  const age=Date.now()-GENMS;
+  if(age<15*60000){el.className="badge live";tx.textContent="Live · updated "+fmtAge(age)+" ago";}
+  else if(age<60*60000){el.className="badge warn";tx.textContent="Updated "+fmtAge(age)+" ago";}
+  else{el.className="badge stale";tx.textContent="⚠ Stale · "+fmtAge(age)+" ago";}
 }
-function funnel(m){kill("funnel");CH.funnel=new Chart(funnelEl(),{type:"bar",data:{labels:["Contacted","Replied","Qualified"],datasets:[{data:[m.contacted,m.replied,m.qualified],backgroundColor:[COL.contacted,COL.gold,COL.completed],borderRadius:4,barThickness:40}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+" ("+pct(c.parsed.x,m.contacted)+"%)"}}},scales:{x:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}},y:{grid:{display:false}}}}});}
-function funnelEl(){return document.getElementById("funnel");}
-function donut(m){kill("donut");CH.donut=new Chart(document.getElementById("donut"),{type:"doughnut",data:{labels:["Completed","In qualification","Declined","No response"],datasets:[{data:[m.qualified,m.inqual,m.declined,m.noresp],backgroundColor:[COL.completed,COL.qualifying,COL.declined,COL.noresp],borderWidth:3,borderColor:"#fff"}]},options:{responsive:true,maintainAspectRatio:false,cutout:"66%",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+": "+c.parsed+" ("+pct(c.parsed,m.contacted)+"%)"}}}}});
+
+function deltaHtml(cur,prev,isPoint){
+  if(!prev&&prev!==0) return "";
+  const d=cur-prev; if(Math.abs(d)<(isPoint?1:0.5)) return `<div class="delta flat">▬ no change</div>`;
+  const cls=d>0?"up":"down",ar=d>0?"▲":"▼";
+  return `<div class="delta ${cls}">${ar} ${Math.abs(Math.round(d))}${isPoint?" pp":""} vs prev</div>`;
+}
+function kpis(m,pm,showDelta){
+  const rr=pct(m.replied,m.contacted),qr=pct(m.qualified,m.replied);
+  const prr=pm?pct(pm.replied,pm.contacted):null, pqr=pm?pct(pm.qualified,pm.replied):null;
+  const c=(ic,bg,col,n,l,p,pb,pc,delta)=>`<div class="kpi"><div class="ic" style="background:${bg};color:${col}">${ic}</div><div class="n">${n}</div><div class="l">${l}</div>${p?`<div class="pct" style="background:${pb};color:${pc}">${p}</div>`:""}${delta||""}</div>`;
+  const dC=showDelta?deltaHtml(m.contacted,pm.contacted,false):"";
+  const dR=showDelta?deltaHtml(rr,prr,true):"";
+  const dQ=showDelta?deltaHtml(qr,pqr,true):"";
+  document.getElementById("kpis").innerHTML=
+    c("◷","var(--beige2)","#6b6f76",m.contacted,"Contacted","","","",dC)+
+    c("✓","var(--goldsoft)","#a9874e",m.replied,"Replied",rr+"% reply","var(--goldsoft)","#9a7a43",dR)+
+    c("★","var(--greensoft)","#2f8f63",m.qualified,"Qualified",qr+"% of replies","var(--greensoft)","#2f8f63",dQ)+
+    c("◔","var(--ambersoft)","#bd861f",m.inqual,"In qualification","mid-flow","var(--ambersoft)","#bd861f","")+
+    c("✕","var(--redsoft)","#bf4a32",m.declined,"Declined","opted out","var(--redsoft)","#bf4a32","")+
+    c("—","var(--beige2)","#9a958d",m.noresp,"No response",pct(m.noresp,m.contacted)+"%","var(--beige2)","#9a958d","");
+}
+function effcards(m){
+  const avgMsg=m.qualified?(m.qmsgs/m.qualified).toFixed(1):"—";
+  const sat=m.replied?Math.round(m.sat/m.replied*100)+"%":"—";
+  const e=(ic,n,l)=>`<div class="eff"><div class="ei">${ic}</div><div><div class="en">${n}</div><div class="el">${l}</div></div></div>`;
+  document.getElementById("eff").innerHTML=
+    e("⚡",fmtDur(m.latMs,m.replied),"Avg reply time")+
+    e("⏱",fmtDur(m.durMs,m.qualified),"Avg time to qualify")+
+    e("✉",avgMsg,"Avg msgs / qualification")+
+    e("★",m.replied?Math.round(m.score/m.replied):"—","Avg lead score")+
+    e("✦",(m.tmsg||0).toLocaleString(),"Total messages")+
+    e("♥",sat,"Client satisfaction");
+}
+function funnel(m){kill("funnel");
+  CH.funnel=new Chart(document.getElementById("funnel"),{type:"bar",data:{labels:["Contacted","Replied","Qualified"],datasets:[{data:[m.contacted,m.replied,m.qualified],backgroundColor:[COL.contacted,COL.gold,COL.completed],borderRadius:4,barThickness:40}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+" ("+pct(c.parsed.x,m.contacted)+"% of contacted)"}}},scales:{x:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}},y:{grid:{display:false}}}}});
+  document.getElementById("drops").innerHTML=`<span>Contacted → replied <b>${pct(m.replied,m.contacted)}%</b></span><span>Replied → qualified <b>${pct(m.qualified,m.replied)}%</b></span><span>Overall <b>${pct(m.qualified,m.contacted)}%</b></span>`;
+}
+function donut(m){kill("donut");const vals=[m.qualified,m.inqual,m.declined,m.noresp];
+  CH.donut=new Chart(document.getElementById("donut"),{type:"doughnut",data:{labels:["Completed","In qualification","Declined","No response"],datasets:[{data:vals,backgroundColor:[COL.completed,COL.qualifying,COL.declined,COL.noresp],borderWidth:3,borderColor:"#fff"}]},options:{responsive:true,maintainAspectRatio:false,cutout:"66%",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+": "+c.parsed+" ("+pct(c.parsed,m.contacted)+"%)"}}}}});
   const L=[["Completed",COL.completed,m.qualified],["In qualification",COL.qualifying,m.inqual],["Declined",COL.declined,m.declined],["No response",COL.noresp,m.noresp]];
   document.getElementById("donutlegend").innerHTML=L.map(x=>`<span><i class="dot" style="background:${x[1]}"></i>${x[0]} ${x[2]}</span>`).join("");}
-function daily(){kill("daily");const k=DAILY.slice().sort((a,b)=>a.day.localeCompare(b.day));CH.daily=new Chart(document.getElementById("daily"),{type:"line",data:{labels:k.map(d=>fmtDay(new Date(d.day))),datasets:[
-  {label:"Contacted",data:k.map(d=>d.contacted),borderColor:"#b8b0a6",backgroundColor:"rgba(184,176,166,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:"#b8b0a6"},
-  {label:"Replied",data:k.map(d=>d.replied),borderColor:COL.gold,backgroundColor:"rgba(169,135,78,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:COL.gold},
-  {label:"Qualified",data:k.map(d=>d.qualified),borderColor:COL.completed,backgroundColor:"rgba(47,143,99,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:COL.completed}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"top",align:"end",labels:{boxWidth:8,boxHeight:8,usePointStyle:true,pointStyle:"circle",font:{size:11},color:"#39414a"}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}}}}});}
+function daily(){kill("daily");const k=DAILY.slice().sort((a,b)=>a.day.localeCompare(b.day));
+  CH.daily=new Chart(document.getElementById("daily"),{type:"line",data:{labels:k.map(d=>fmtDay(new Date(d.day))),datasets:[
+    {label:"Contacted",data:k.map(d=>d.contacted),borderColor:"#b8b0a6",backgroundColor:"rgba(184,176,166,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:"#b8b0a6"},
+    {label:"Replied",data:k.map(d=>d.replied),borderColor:COL.gold,backgroundColor:"rgba(169,135,78,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:COL.gold},
+    {label:"Qualified",data:k.map(d=>d.qualified),borderColor:COL.completed,backgroundColor:"rgba(47,143,99,.10)",fill:true,tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:COL.completed}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"top",align:"end",labels:{boxWidth:8,boxHeight:8,usePointStyle:true,pointStyle:"circle",font:{size:11},color:"#39414a"}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}}}}});}
 function weekly(){const wk={};DAILY.forEach(d=>{const k=isoWeek(new Date(d.day));(wk[k]=wk[k]||{c:0,r:0,q:0});wk[k].c+=d.contacted;wk[k].r+=d.replied;wk[k].q+=d.qualified;});const keys=Object.keys(wk).sort();let h=`<table class="wk"><thead><tr><th>Week</th><th>Contacted</th><th>Replied</th><th>Qualified</th><th>Reply rate</th></tr></thead><tbody>`;keys.forEach(k=>{const w=wk[k];const rr=pct(w.r,w.c);h+=`<tr><td><b>${k}</b></td><td>${w.c}</td><td>${w.r}</td><td>${w.q}</td><td><div style="display:flex;align-items:center;gap:9px;justify-content:flex-end"><span style="font-weight:600;color:var(--ink)">${rr}%</span><div class="bar" style="width:58px"><i style="width:${rr}%"></i></div></div></td></tr>`;});h+="</tbody></table>";document.getElementById("weekly").innerHTML=h;}
 function props(){kill("props");const e=PROPS.slice().sort((a,b)=>b.count-a.count).slice(0,7);CH.props=new Chart(document.getElementById("props"),{type:"bar",data:{labels:e.map(x=>"ref "+x.ref),datasets:[{data:e.map(x=>x.count),backgroundColor:COL.graphite,borderRadius:3,barThickness:16}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:"#f2efe9"},ticks:{precision:0}},y:{grid:{display:false}}}}});}
-function insights(m){const rr=pct(m.replied,m.contacted),qr=pct(m.qualified,m.replied);const top=PROPS.slice().sort((a,b)=>b.count-a.count)[0];const it=[
-  `<b>${m.qualified} of ${m.replied} replies (${qr}%)</b> reached a completed qualification — solicitud confirmed or handed to an agent for a visit.`,
-  `<b>${rr}% reply rate</b> (${m.replied}/${m.contacted}). ${m.noresp} contacts didn’t answer — the lever is list quality &amp; follow-up cadence.`,
-  m.declined?`<b>${m.declined} opt-out${m.declined>1?"s":""}</b> — handled cleanly by the agent.`:`No opt-outs in this period.`,
-  m.inqual?`<b>${m.inqual} lead${m.inqual>1?"s":""} mid-flow</b> — engaged but not yet finished; best manual follow-ups.`:`No leads stuck mid-qualification.`,
-  top?`<b>Top demand: ref ${top.ref}</b> with ${top.count} engaged leads.`:""
-].filter(Boolean);document.getElementById("insights").innerHTML=it.map(t=>`<li><span class="bullet"></span><span>${t}</span></li>`).join("");}
+function insights(m){const rr=pct(m.replied,m.contacted),qr=pct(m.qualified,m.replied);const top=PROPS.slice().sort((a,b)=>b.count-a.count)[0];
+  const it=[
+    `<b>${m.qualified} of ${m.replied} replies (${qr}%)</b> reached a completed qualification — solicitud confirmed or handed to an agent for a visit.`,
+    `<b>${rr}% reply rate</b> (${m.replied}/${m.contacted}). ${m.noresp} contacts didn't answer — the lever is list quality &amp; follow-up cadence.`,
+    m.replied?`Leads reply in <b>${fmtDur(m.latMs,m.replied)}</b> on average and reach qualified in <b>${fmtDur(m.durMs,m.qualified)}</b>, over <b>${m.qualified?(m.qmsgs/m.qualified).toFixed(1):"—"} messages</b>.`:``,
+    m.inqual?`<b>${m.inqual} lead${m.inqual>1?"s":""} mid-flow</b> — engaged but not yet finished; best manual follow-ups right now.`:`No leads stuck mid-qualification.`,
+    top?`<b>Top demand: ref ${top.ref}</b> with ${top.count} engaged leads.`:""
+  ].filter(Boolean);
+  document.getElementById("insights").innerHTML=it.map(t=>`<li><span class="bullet"></span><span>${t}</span></li>`).join("");}
 
-function inWin(d,p){if(p==="all")return true;const days=p==="24h"?1:7;const last=DAILY.map(x=>x.day).sort().slice(-days);return last.includes(d.day);}
-function render(p){const list=DAILY.filter(d=>inWin(d,p));const m=totals(list);const cap={"24h":"the latest day","7d":"the last 7 days","all":"all time"};document.getElementById("funnelcap").textContent="Contacts reached in "+cap[p];document.getElementById("donutcap").textContent="Where "+cap[p]+" contacts ended up";kpis(m);funnel(m);donut(m);insights(m);daily();weekly();props();}
-
-async function fetchCSV(){let err;for(const u of buildSources()){try{const r=await fetch(u,{redirect:"follow",cache:"no-store"});if(!r.ok){err=r.status;continue;}const t=await r.text();if(/<html|google.visualization/i.test(t)&&!/^type,/m.test(t)){/*gviz JSON wrapper?*/}return t;}catch(e){err=e.message;}}throw new Error("Couldn’t reach the metrics sheet ("+err+").");}
+function render(p){
+  const [cur,prev]=windowDays(p);
+  const m=sum(cur), pm=prev.length?sum(prev):null;
+  const cap={"24h":"the latest day","7d":"the last 7 days","all":"all time"};
+  document.getElementById("funnelcap").textContent="Contacts reached in "+cap[p];
+  document.getElementById("donutcap").textContent="Where "+cap[p]+" contacts ended up";
+  kpis(m,pm,!!pm); effcards(m); funnel(m); donut(m); insights(m); daily(); weekly(); props();
+}
 function ingest(text){
-  // gviz may wrap; strip if needed
-  const rows=parseCSV(text.trim());
-  DAILY=[];PROPS=[];GEN="";
+  const rows=parseCSV(text.trim()); DAILY=[];PROPS=[];GENMS=0;
   rows.forEach(r=>{const t=(r[0]||"").trim();
-    if(t==="daily")DAILY.push({day:r[1],contacted:+r[2]||0,replied:+r[3]||0,qualified:+r[4]||0,inqual:+r[5]||0,declined:+r[6]||0,noresp:+r[7]||0,qmsgs:+r[8]||0});
+    if(t==="daily")DAILY.push({day:r[1],contacted:+r[2]||0,replied:+r[3]||0,qualified:+r[4]||0,inqual:+r[5]||0,declined:+r[6]||0,noresp:+r[7]||0,qmsgs:+r[8]||0,latMs:+r[9]||0,durMs:+r[10]||0,score:+r[11]||0,tmsg:+r[12]||0,sat:+r[13]||0});
     else if(t==="prop")PROPS.push({ref:r[1],count:+r[2]||0});
-    else if(t==="meta"&&r[1]==="generated")GEN=r[2];
+    else if(t==="meta"&&(r[1]==="generated"))GENMS=+r[2]||0;
   });
 }
+async function fetchCSV(){let err;for(const u of buildSources()){try{const r=await fetch(u,{redirect:"follow",cache:"no-store"});if(!r.ok){err=r.status;continue;}const t=await r.text();return t;}catch(e){err=e.message;}}throw new Error("Couldn't reach the metrics sheet ("+err+").");}
 async function load(){
   try{
-    const text=await fetchCSV();
-    ingest(text);
-    if(!DAILY.length) throw new Error("The metrics sheet has no rows yet, or isn’t shared publicly.");
+    const text=await fetchCSV(); ingest(text);
+    if(!DAILY.length) throw new Error("The metrics sheet has no rows yet, or isn't shared publicly.");
     document.getElementById("loading").style.display="none";
     document.getElementById("app").style.display="block";
-    const g=GEN?new Date(GEN):new Date();
-    document.getElementById("updated").textContent="Data as of "+g.toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
-    const m=totals(DAILY);
+    freshness();
+    const m=sum(DAILY);
     document.getElementById("foot").textContent=`All-time: ${m.contacted} contacts engaged · ${m.replied} replies · ${m.qualified} qualified. Aggregate metrics only — no client data · auto-updates every 5 min. Valtier Real Estate.`;
     render(CURRENT);
   }catch(e){
-    document.getElementById("loading").innerHTML=`<div class="errbox"><b>Couldn’t load the live metrics.</b><br/>${(e&&e.message)||e}<br/><br/>Make sure the “Valtier AI — Public Metrics” sheet is shared as <b>Anyone with the link → Viewer</b>, then press Refresh.</div>`;
+    document.getElementById("loading").innerHTML=`<div class="errbox"><b>Couldn't load the live metrics.</b><br/>${(e&&e.message)||e}<br/><br/>Make sure the metrics sheet is shared as <b>Anyone with the link → Viewer</b>, then press ↻.</div>`;
   }
 }
 document.getElementById("seg").addEventListener("click",ev=>{const b=ev.target.closest("button");if(!b)return;CURRENT=b.dataset.p;[...document.querySelectorAll("#seg button")].forEach(x=>x.classList.toggle("on",x===b));render(CURRENT);});
-async function refresh(){try{const text=await fetchCSV();ingest(text);if(DAILY.length){const g=GEN?new Date(GEN):new Date();document.getElementById("updated").textContent="Data as of "+g.toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});render(CURRENT);}}catch(e){}}
-setInterval(refresh,300000);
+async function refresh(){try{const text=await fetchCSV();ingest(text);if(DAILY.length){freshness();render(CURRENT);}}catch(e){}}
+setInterval(refresh,90000);
 load();
 </script>
 </body>
